@@ -1,0 +1,20 @@
+{
+  "_sobre": "Alertas do CodeQL analisados e aceitos, com o motivo. O CI falha em qualquer alerta que não esteja aqui. Revise esta lista quando o arquivo citado mudar.",
+  "aceitos": [
+    {
+      "regra": "js/insufficient-password-hash",
+      "arquivo": "src/servidor/autenticacao.ts",
+      "motivo": "SHA-1 usado só na consulta k-anonimato ao Have I Been Pwned (o protocolo da API exige SHA-1; só os 5 primeiros caracteres saem do servidor). A senha é guardada com bcrypt custo 12, em outra função."
+    },
+    {
+      "regra": "js/user-controlled-bypass",
+      "arquivo": "src/routes/auth.tsx",
+      "motivo": "Código do navegador que lê token_hash e type do link do e-mail só para decidir qual tela mostrar. A validação real é feita no servidor (POST /api/auth/verificar), que exige um token de uso único, com prazo, cujo hash está no banco."
+    },
+    {
+      "regra": "js/user-controlled-bypass",
+      "arquivo": "src/routes/redefinir-senha.tsx",
+      "motivo": "Mesmo caso de src/routes/auth.tsx: a condição só escolhe a tela; o servidor valida o token de redefinição (uso único, 1 h)."
+    }
+  ]
+}

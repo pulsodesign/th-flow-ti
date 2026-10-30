@@ -1,0 +1,17 @@
+{
+  "name": "TH Flow",
+  "short_name": "TH Flow",
+  "description": "Gestor de projetos da TH Flow",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3f2ee",
+  "theme_color": "#eab343",
+  "icons": [
+    { "src": "/icones/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icones/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icones/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icones/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

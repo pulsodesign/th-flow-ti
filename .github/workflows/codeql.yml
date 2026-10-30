@@ -1,0 +1,52 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  actions: read
+  contents: read
+
+# O repositório é privado e sem "code scanning" ativado, então o resultado não
+# é enviado para a aba Security: fica como artefato da execução, e o job falha
+# se houver alerta fora de .github/codeql-aceitos.json (falsos positivos
+# analisados, cada um com o motivo). Com code scanning ativado, troque
+# `upload: never` por `upload: always` e adicione `security-events: write`.
+jobs:
+  analisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+      - uses: github/codeql-action/analyze@v4
+        with:
+          upload: never
+          output: resultados-codeql
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resultados-codeql
+          path: resultados-codeql
+      - name: Falhar se houver alertas não analisados
+        run: |
+          jq -s '
+            (.[0].aceitos | map(.regra + "|" + .arquivo)) as $ok
+            | [.[1:][] | .runs[].results[]
+                | {regra: .ruleId,
+                   arquivo: .locations[0].physicalLocation.artifactLocation.uri,
+                   linha: .locations[0].physicalLocation.region.startLine,
+                   texto: .message.text}]
+            | map(. + {aceito: ((.regra + "|" + .arquivo) as $k | $ok | index($k) != null)})
+          ' .github/codeql-aceitos.json resultados-codeql/*.sarif > alertas.json
+          echo "Aceitos (motivo em .github/codeql-aceitos.json):"
+          jq -r '.[] | select(.aceito) | "  - \(.regra) \(.arquivo):\(.linha)"' alertas.json
+          echo "Novos:"
+          jq -r '.[] | select(.aceito | not) | "  - \(.regra) \(.arquivo):\(.linha) \(.texto)"' alertas.json
+          test "$(jq '[.[] | select(.aceito | not)] | length' alertas.json)" -eq 0

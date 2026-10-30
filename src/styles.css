@@ -1,0 +1,489 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+@custom-variant escuro (&:is(.theme-escuro *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-tile: var(--tile);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-ink: var(--primary-ink);
+  --color-selected: var(--selected);
+  --color-highlight: var(--highlight);
+  --color-selected-foreground: var(--selected-foreground);
+  --color-event: var(--event);
+  --color-event-foreground: var(--event-foreground);
+  --color-holiday: var(--holiday);
+  --color-holiday-foreground: var(--holiday-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: "Quicksand", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ===== Identidade TH Flow =====
+   Base clara: gradiente cinza quase branco + amarelo claro, cards em vidro.
+   Amarelo #eab343 é a cor de contraste; #23254d substitui o preto.
+   Apoio: #7abba2, #293785, #85b645. */
+:root {
+  --radius: 1rem;
+
+  --app-bg:
+    radial-gradient(1100px 700px at 100% 0%, #f8e6ae 0%, rgb(248 230 174 / 0) 60%),
+    radial-gradient(900px 650px at 75% 100%, #f6e3a4 0%, rgb(246 227 164 / 0) 55%),
+    linear-gradient(135deg, #ececec 0%, #f2f1ec 45%, #f7efd6 100%);
+  --background: #f3f2ee;
+  --foreground: #23254d;
+  --surface: rgb(255 255 255 / 0.6);
+  --surface-2: rgb(35 37 77 / 0.05);
+
+  --card: rgb(255 255 255 / 0.58);
+  --card-foreground: #23254d;
+  --popover: #fbfaf7;
+  --popover-foreground: #23254d;
+  --glass-border: rgb(255 255 255 / 0.8);
+  --tile: rgb(255 255 255 / 0.8);
+
+  --primary: #eab343;
+  --primary-foreground: #23254d;
+  --primary-ink: #a8740f;
+  --selected: #23254d;
+  --highlight: #23254d;
+  --selected-foreground: #ffffff;
+
+  --secondary: rgb(35 37 77 / 0.06);
+  --secondary-foreground: #23254d;
+
+  --muted: rgb(35 37 77 / 0.05);
+  --muted-foreground: #7c7e96;
+
+  --accent: rgb(234 179 67 / 0.16);
+  --accent-foreground: #23254d;
+
+  --destructive: #d0574a;
+  --destructive-foreground: #ffffff;
+  --success: #85b645;
+  --warning: #eab343;
+
+  --event: #eab343;
+  --event-foreground: #94650c;
+  --holiday: #6d5bd0;
+  --holiday-foreground: #4b3aa8;
+
+  --border: rgb(35 37 77 / 0.09);
+  --input: rgb(35 37 77 / 0.13);
+  --ring: #eab343;
+
+  --chart-1: #eab343;
+  --chart-2: #23254d;
+  --chart-3: #7abba2;
+  --chart-4: #293785;
+  --chart-5: #85b645;
+
+  --sidebar: rgb(255 255 255 / 0.5);
+  --sidebar-foreground: #23254d;
+  --sidebar-primary: #23254d;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgb(35 37 77 / 0.06);
+  --sidebar-accent-foreground: #23254d;
+  --sidebar-border: rgb(35 37 77 / 0.08);
+  --logo-texto: #282a50;
+  --sidebar-ring: #eab343;
+  --sidebar-active-icon: #eab343;
+
+  --gradient-navy: linear-gradient(140deg, #2f3268, #23254d);
+  --gradient-accent: linear-gradient(120deg, #eab343, #f2cd78);
+  --shadow-soft: inset 0 1px 0 rgb(255 255 255 / 0.6), 0 18px 40px -28px rgb(35 37 77 / 0.28);
+  --shadow-lift: 0 24px 60px -30px rgb(35 37 77 / 0.4);
+  --transition-fluid: 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Versão escura: cinza quase preto, brilho em amarelo claro, amarelo como contraste */
+.theme-escuro {
+  --app-bg:
+    radial-gradient(900px 600px at 0% 0%, rgb(243 205 120 / 0.13) 0%, rgb(243 205 120 / 0) 60%),
+    radial-gradient(800px 600px at 100% 100%, rgb(243 205 120 / 0.06) 0%, rgb(243 205 120 / 0) 55%),
+    linear-gradient(135deg, #1a1a1b 0%, #202021 55%, #1c1c1d 100%);
+  --background: #1d1d1e;
+  --foreground: #f4f4f5;
+  --surface: rgb(255 255 255 / 0.06);
+  --surface-2: rgb(255 255 255 / 0.09);
+
+  --card: rgb(62 62 64 / 0.55);
+  --card-foreground: #f4f4f5;
+  --popover: #2b2b2d;
+  --popover-foreground: #f4f4f5;
+  --glass-border: rgb(255 255 255 / 0.07);
+  --tile: rgb(74 74 77 / 0.62);
+
+  --primary: #eab343;
+  --primary-foreground: #1b1b1c;
+  --primary-ink: #f0c561;
+  --selected: #eab343;
+  --highlight: #4a5be0;
+  --selected-foreground: #1b1b1c;
+
+  --secondary: rgb(255 255 255 / 0.08);
+  --secondary-foreground: #f4f4f5;
+
+  --muted: rgb(255 255 255 / 0.06);
+  --muted-foreground: #a3a3aa;
+
+  --accent: rgb(234 179 67 / 0.14);
+  --accent-foreground: #f4f4f5;
+
+  --destructive: #e0695b;
+  --destructive-foreground: #ffffff;
+  --success: #94c556;
+  --warning: #eab343;
+
+  --event: #eab343;
+  --event-foreground: #f3cd78;
+  --holiday: #8f82e6;
+  --holiday-foreground: #c6bdf6;
+
+  --border: rgb(255 255 255 / 0.08);
+  --input: rgb(255 255 255 / 0.12);
+  --ring: #eab343;
+
+  --chart-1: #eab343;
+  --chart-2: #5266e6;
+  --chart-3: #7abba2;
+  --chart-4: #f4f4f5;
+  --chart-5: #85b645;
+
+  --sidebar: rgb(52 52 54 / 0.55);
+  --sidebar-foreground: #ececee;
+  --sidebar-primary: #eab343;
+  --sidebar-primary-foreground: #1b1b1c;
+  --sidebar-accent: rgb(255 255 255 / 0.07);
+  --sidebar-accent-foreground: #f4f4f5;
+  --sidebar-border: rgb(255 255 255 / 0.07);
+  --logo-texto: #ffffff;
+  --sidebar-ring: #eab343;
+  --sidebar-active-icon: #1b1b1c;
+
+  --gradient-navy: linear-gradient(140deg, #5a6cf0, #4152d8);
+  --gradient-accent: linear-gradient(120deg, #eab343, #f3cd78);
+  --shadow-soft: inset 0 1px 0 rgb(255 255 255 / 0.04), 0 18px 40px -28px rgb(0 0 0 / 0.7);
+  --shadow-lift: 0 24px 60px -30px rgb(0 0 0 / 0.8);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    background-image: var(--app-bg);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-2);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* Rolagem horizontal do Kanban: barra mais grossa, descolada do rodapé e com "pegada" visível */
+.kanban-scroll {
+  padding-bottom: 22px;
+  scrollbar-width: auto;
+  scrollbar-color: var(--primary) transparent;
+}
+.kanban-scroll::-webkit-scrollbar {
+  height: 14px;
+}
+.kanban-scroll::-webkit-scrollbar-track {
+  background: var(--surface);
+  border-radius: 999px;
+  margin: 0 12px;
+}
+.kanban-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--primary) 70%, var(--surface-2));
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+  min-width: 80px;
+}
+.kanban-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+  background-clip: content-box;
+}
+
+/* Rolagem vertical discreta dentro das células do calendário */
+.cal-thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--primary) 55%, transparent) transparent;
+}
+.cal-thin-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.cal-thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cal-thin-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--primary) 55%, transparent);
+  border-radius: 999px;
+}
+.cal-thin-scroll::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--primary) 80%, transparent);
+}
+
+@utility panel {
+  background: var(--card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+}
+
+/* Vidro desfocado dos cards e painéis */
+@utility glass {
+  background: var(--card);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+}
+
+/* Fim de semana no calendário: listrado discreto */
+.cal-hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in oklab, var(--foreground) 7%, transparent) 0 1px,
+    transparent 1px 7px
+  );
+}
+
+/* Material Symbols Rounded: outline e traço fino */
+.material-symbols-rounded {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  user-select: none;
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tooltip dos gráficos (Recharts): texto sempre branco sobre fundo escuro */
+.recharts-default-tooltip,
+.recharts-default-tooltip .recharts-tooltip-label,
+.recharts-default-tooltip .recharts-tooltip-item,
+.recharts-default-tooltip .recharts-tooltip-item-name,
+.recharts-default-tooltip .recharts-tooltip-item-value,
+.recharts-default-tooltip .recharts-tooltip-item-separator {
+  color: #fff !important;
+}
+
+@utility fluid {
+  transition: all var(--transition-fluid);
+}
+
+@utility gradient-navy {
+  background-image: var(--gradient-navy);
+}
+
+@utility rise-in {
+  animation: rise-in 260ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Conteúdo renderizado de descrições e comentários */
+.rich-body a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.rich-body ul {
+  list-style: disc;
+}
+.rich-body ol {
+  list-style: decimal;
+}
+.rich-body li {
+  margin-left: 1rem;
+}
+.rich-body img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Linha com rolagem horizontal sem barra visível (chips e filtros no celular) */
+@utility sem-barra {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Toque: amplia a área clicável dos botões de ícone sem mudar o visual (mínimo ~44px) */
+@media (pointer: coarse) {
+  :is(button, a)[aria-label]:not(.absolute, .fixed, .sticky, .inset-0) {
+    position: relative;
+  }
+  :is(button, a)[aria-label]:not(.absolute, .fixed, .sticky, .inset-0)::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+  }
+}
+
+/* iPhone: campos com texto menor que 16px fazem o Safari dar zoom ao tocar */
+@media (pointer: coarse) and (max-width: 767px) {
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]),
+  select,
+  textarea,
+  [contenteditable="true"] {
+    font-size: 16px !important;
+  }
+}
+
+/* Lista de cards dentro de uma coluna: o card cortado some suavemente antes da borda arredondada. */
+.lista-coluna {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent);
+}
+
+/* Celular: o Safari do iPhone pinta a área da barra de status com a cor de fundo da página
+   (background-color), sem o degradê. Aqui o degradê é vertical e começa exatamente nessa cor,
+   então barra de status e topo do app ficam contínuos, sem faixa. */
+@media (max-width: 767px) {
+  :root {
+    --topo-celular: #f4e8c3;
+    --app-bg: linear-gradient(180deg, #f4e8c3 0%, #f3eedf 34%, #f2f0ea 60%, #f4e8c3 100%);
+  }
+  .theme-escuro {
+    --topo-celular: #222120;
+    --app-bg: linear-gradient(180deg, #222120 0%, #1d1d1e 40%, #1c1c1d 80%, #222120 100%);
+  }
+  html,
+  body {
+    background-color: var(--topo-celular);
+  }
+}
+
+/* Tela de carregamento: o símbolo é desenhado em linha, preenche e fica pulsando */
+.carregamento-marca {
+  overflow: visible;
+  transform-origin: center;
+  animation: marca-pulsa 1.6s ease-in-out 2s infinite;
+}
+.carregamento-marca path {
+  fill: currentColor;
+  fill-opacity: 0;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    marca-traco 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.1s forwards,
+    marca-preenche 0.5s ease-out 1.5s forwards;
+}
+@keyframes marca-traco {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes marca-preenche {
+  to {
+    fill-opacity: 1;
+  }
+}
+@keyframes marca-pulsa {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carregamento-marca,
+  .carregamento-marca path {
+    animation: none;
+    fill-opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: Lint, tipos, build e auditoria
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: thflow
+          POSTGRES_PASSWORD: thflow
+          POSTGRES_DB: thflow
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U thflow"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://thflow:thflow@localhost:5432/thflow
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Auditoria de dependências
+        run: npm audit --audit-level=high
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Migrações do banco num PostgreSQL limpo
+        run: npm run db:semente
